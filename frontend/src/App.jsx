@@ -4,7 +4,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-500 to-teal-500 flex justify-center items-center">
       <div className="bg-white p-8 rounded-xl shadow-xl max-w-lg w-full">
-        <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">
+        <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6 font-[Poppins]">
           Todo App
         </h1>
 
