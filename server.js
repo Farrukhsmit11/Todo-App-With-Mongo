@@ -39,10 +39,6 @@ app.post('/add-todo', (request, response) => {
 
 
 
-
-
-
-
 app.patch('/edit-todo/:id', (request, response) => {
     const id = request.params.id
 
