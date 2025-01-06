@@ -40,9 +40,33 @@ app.patch("/api/v1/todo/:id", (request, response) => {
     if (todos[i].id === id) {
 
 
+<<<<<<< HEAD
       todos[i].todoContent = request.body.todoContent;
       isFound = true;
       break;
+=======
+app.patch('/edit-todo/:id', (request, response) => {
+    const id = request.params.id
+
+    let isFound = false;
+    for (let i = 0; i < todos.length; i++) {
+        if (todos[i].id === id) {
+            // idher product mil chuka hy (ab us product ko edit karna hy)
+
+            todos[i].todoContent = request.body.todoContent;
+            isFound = true;
+            break;
+        }
+    }
+
+    if (isFound) {
+        response.status(201).send({
+            data: { todoContent: request.body.todoContent, id: id, },
+            message: 'todo success'
+        })
+    } else {
+        response.status(200).send({ data: null, message: 'todo not found' });
+>>>>>>> 11bcf7b8032851a7f6ce833b4ddac7b32186fdf4
     }
   }
 
