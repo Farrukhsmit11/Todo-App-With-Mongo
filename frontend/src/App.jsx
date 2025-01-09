@@ -1,11 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import  toast, { Toaster } from 'react-hot-toast';
 
 export default function App() {
   const BASE_URL = "http://localhost:5002";
 
   const [todos, setTodos] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
+
+  console.log("todo" , todos);
+  
+  
   const [currentTodo, setCurrentTodo] = useState({ id: null, value: "" });
 
   const getTodo = async () => {
@@ -39,12 +44,21 @@ export default function App() {
     }
   };
 
-  const deleteTodo = async (id) => {
+  const deleteTodo = async (todoId) => {
     try {
-      await axios.delete(`${BASE_URL}/api/v1/todo/${id}`);
+      console.log("todoId ", todoId);
+
+      const res = await axios.delete(`${BASE_URL}/api/v1/todo/${todoId}`);
+
+      console.log("data ", res.data);
+
+      toast(res.data?.message);
+
       getTodo();
     } catch (err) {
-      console.error("Error deleting todo:", err);
+      console.log("mera error", err);
+
+      toast.error(err?.response?.data?.message || "unknown errorrr");
     }
   };
 
@@ -72,11 +86,15 @@ export default function App() {
     }
   };
 
+
+
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br    flex items-center justify-center">
       <div className="bg-white p-8 rounded-[8px] shadow-2xl w-full max-w-md">
         <h1 className="text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400  mb-8">
-          Todo App
+          Todo-App
         </h1>
 
         {isEditing ? (
@@ -111,7 +129,87 @@ export default function App() {
           </form>
         )}
 
-        <ul className="mt-6 space-y-4">
+      {!todos.length && "todo nhi hy"}
+
+          <ul className="mt-6 space-y-4">
+          {todos?.map((todo, index) => (
+            <li
+              key={todo.id}
+              className="flex justify-between items-center p-4"
+            >
+              {!todo.isEditing ? (
+                <span className="text-gray-700">{todo.todoContent}</span>
+              ) : (
+                <input
+                  type="text"
+                  value={todo.todoContent}
+                  className="border border-gray-400"
+                />
+              )}
+
+              <div className="space-x-3">
+                {!todo.isEditing ? (
+                  <button
+                    onClick={() => {
+                      const newTodos = todos.map((todo, i) => {
+                        if (i === index) {
+                          todo.isEditing = true;
+                        } else {
+                          todo.isEditing = false;
+                        }
+                        return todo;
+                      });
+
+                      
+                      setTodos([...newTodos]);
+                    }}
+                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all"
+                  >
+                    Edit
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      const newTodos = todos.map((todo, i) => {
+                        todo.isEditing = false;
+                        return todo;
+                      });
+                      setTodos([...newTodos]);
+                    }}
+                  >
+                    cancel
+                  </button>
+                )}
+                {!todo.isEditing ? (
+                  <button
+                    onClick={() => deleteTodo(todo.id)}
+                    className="px-4 py-2 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all"
+                  >
+                    Delete
+                  </button>
+                ) : (
+                  <button>Save</button>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+        {/* <ul className="mt-6 space-y-4">
           {todos.map((todo) => (
             <li
               key={todo.id}
@@ -138,7 +236,7 @@ export default function App() {
       </div>
     </div>
   );
-}
+} */}
 
 
 
