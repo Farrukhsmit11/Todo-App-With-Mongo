@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import  toast, { Toaster } from 'react-hot-toast';
 
+
+
 export default function App() {
   const BASE_URL = "http://localhost:5002";
 
@@ -85,9 +87,6 @@ export default function App() {
       console.error("Error editing todo:", err);
     }
   };
-
-
-
 
 
   return (
