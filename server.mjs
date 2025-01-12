@@ -11,17 +11,11 @@ const port = process.env.PORT || 5002;
 const todos = []
 
 
-app.use(express.json())    // To convert body into Json
+app.use(express.json())    
 
 app.use(
-  cors({
-    origin: [ 'https://todo-app-with-react.surge.sh'],
-  })
+  cors({ origin: ["http://localhost:5173", "https://frontend.surge.sh"] }),
 );
-
-
-
-
 
 
 
