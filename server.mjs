@@ -10,11 +10,11 @@ const port = process.env.PORT || 5002;
 
 const todos = []
 
-
+z
 app.use(express.json())    
 
 app.use(
-  cors({ origin: ["http://localhost:5173", "https://frontend.surge.sh"] }),
+  cors({ origin: ["http://localhost:5173", "https://frontend.surge.sh    https://todo-app-with-react.surge.sh"]}),
 );
 
 
