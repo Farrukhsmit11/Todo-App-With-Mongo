@@ -1,4 +1,6 @@
+
 import axios from "axios";
+import e from "cors";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -7,6 +9,8 @@ export default function App() {
   const BASE_URL = "http://localhost:5002";
 
   const [todos, setTodos] = useState([]);
+  const [isEditing, setIsEditing] = useState(false); // Add this line
+
 
 
   const [currentTodo, setCurrentTodo] = useState({ id: null, value: "" });
@@ -64,7 +68,6 @@ export default function App() {
     setIsEditing(true);
     setCurrentTodo({ id, value });
   };
-
   const saveEdit = async (event) => {
     event.preventDefault();
     const newValue = event.target.editInput.value.trim();
@@ -129,7 +132,7 @@ export default function App() {
         <ul className="mt-6 space-y-4">
           {todos?.map((todo, index) => (
             <li
-              key={todo.id}
+              key={todo._id}
               className="flex justify-between items-center p-4"
             >
               {!todo.isEditing ? (
@@ -138,24 +141,22 @@ export default function App() {
                 <input
                   type="text"
                   value={todo.todoContent}
+                  onChange={(e) => {
+                    const newTodos = [...todos];
+                    newTodos[index].todoContent = e.target.value;
+                    setTodos(newTodos);
+                  }}
                   className="border border-gray-400"
                 />
               )}
-
               <div className="space-x-3">
                 {!todo.isEditing ? (
                   <button
                     onClick={() => {
                       const newTodos = todos.map((todo, i) => {
-                        if (i === index) {
-                          todo.isEditing = true;
-                        } else {
-                          todo.isEditing = false;
-                        }
+                        todo.isEditing = true;
                         return todo;
                       });
-
-
                       setTodos([...newTodos]);
                     }}
                     className="px-4 py-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all"
@@ -177,13 +178,24 @@ export default function App() {
                 )}
                 {!todo.isEditing ? (
                   <button
-                    onClick={() => deleteTodo(todo.id)}
+                    onClick={() => deleteTodo(todo._id)}
                     className="px-4 py-2 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all"
                   >
                     Delete
                   </button>
                 ) : (
-                  <button>Save</button>
+                  <button
+
+                    onClick={() => {
+                      const newTodos = todos.map((t, i) =>
+                        i === index
+                          ? { ...t, isEditing: false }
+                          : t
+                      );
+                      setTodos(newTodos);
+                    }}
+
+                  >Save</button>
                 )}
               </div>
             </li>
