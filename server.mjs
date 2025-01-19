@@ -5,14 +5,9 @@ import 'dotenv/config'
 import './database.js'
 import { Todo } from './models/index.js';
 
-
-
 const app = express()
 const port = process.env.PORT || 5002;
 
-
-
-// const todos = []
 
 
 app.use(express.json())

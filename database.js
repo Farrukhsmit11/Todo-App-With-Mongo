@@ -1,7 +1,8 @@
-import mongoose  from "mongoose";
+import mongoose from "mongoose";
 
 const mongodbURi = process.env.MONGO_URI;
 
+console.log("mongodbURi" , mongodbURi);
 
 
 const connectDB = async () => {
