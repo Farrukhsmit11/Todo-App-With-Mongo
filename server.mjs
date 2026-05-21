@@ -9,14 +9,20 @@ import { Todo } from './models/index.js';
 const app = express()
 const port = process.env.PORT || 5002;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e525d43899c54224138b8e7486114204d0719b1
 app.use(express.json())
 
 app.use(
   cors({ origin: ["http://localhost:5173", "https://todo-app-with-react.surge.sh/"] }),
 );
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e525d43899c54224138b8e7486114204d0719b1
 app.get("/api/v1/todos", async (request, response) => {
   try {
     const todos = await Todo.find()
@@ -38,8 +44,11 @@ app.post('/api/v1/todo', async (request, response) => {
 }
 );
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 3e525d43899c54224138b8e7486114204d0719b1
 app.patch('/api/v1/todo/:id', async (request, response) => {
   const id = request.params.id
 
@@ -62,7 +71,10 @@ app.patch('/api/v1/todo/:id', async (request, response) => {
   }
 });
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e525d43899c54224138b8e7486114204d0719b1
 app.delete('/api/v1/todo/:id', async (request, response) => {
   const id = request.params.id
   const result = await Todo.findByIdAndDelete(id)
@@ -76,7 +88,10 @@ app.delete('/api/v1/todo/:id', async (request, response) => {
   }
 });
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e525d43899c54224138b8e7486114204d0719b1
 app.use((request, response) => {
   response.status(404).send("no route found!");
 });
