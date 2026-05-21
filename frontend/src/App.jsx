@@ -5,19 +5,27 @@ import { useEffect, useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 
 
+export const getUrl = () => {
+  const isHosted = window.location.href.includes("https");
+
+  const baseUrl = isHosted
+    ? "https://todo-app-backend-theta-swart.vercel.app"
+    : "http://localhost:5002";
+  return baseUrl;
+};
+
 export default function App() {
-  const BASE_URL = "http://localhost:5002";
+
 
   const [todos, setTodos] = useState([]);
   const [isEditing, setIsEditing] = useState(false); // Add this line
-
 
 
   const [currentTodo, setCurrentTodo] = useState({ id: null, value: "" });
 
   const getTodo = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/v1/todos`);
+      const res = await axios.get(`${getUrl()}/api/v1/todos`);
       setTodos(res?.data?.data || []);
     } catch (err) {
       console.error("Error fetching todos:", err);
@@ -38,7 +46,7 @@ export default function App() {
     }
 
     try {
-      await axios.post(`${BASE_URL}/api/v1/todo`, { todo: todoValue });
+      await axios.post(`${getUrl()}/api/v1/todo`, { todo: todoValue });
       event.target.reset();
       getTodo();
     } catch (err) {
@@ -50,7 +58,7 @@ export default function App() {
     try {
       console.log("todoId ", todoId);
 
-      const res = await axios.delete(`${BASE_URL}/api/v1/todo/${todoId}`);
+      const res = await axios.delete(`${getUrl()}/api/v1/todo/${todoId}`);
 
       console.log("data ", res.data);
 
@@ -78,7 +86,7 @@ export default function App() {
     }
 
     try {
-      await axios.put(`${BASE_URL}/api/v1/todo/${currentTodo.id}`, { todo: newValue });
+      await axios.put(`${getUrl()}/api/v1/todo/${currentTodo.id}`, { todo: newValue });
       setIsEditing(false);
       setCurrentTodo({ id: null, value: "" });
       getTodo();
@@ -205,14 +213,3 @@ export default function App() {
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-

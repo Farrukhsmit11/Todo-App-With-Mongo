@@ -5,9 +5,9 @@ import 'dotenv/config'
 import './database.js'
 import { Todo } from './models/index.js';
 
+
 const app = express()
 const port = process.env.PORT || 5002;
-
 
 
 app.use(express.json())
@@ -15,7 +15,6 @@ app.use(express.json())
 app.use(
   cors({ origin: ["http://localhost:5173", "https://todo-app-with-react.surge.sh"] }),
 );
-
 
 
 app.get("/api/v1/todos", async (request, response) => {
@@ -32,7 +31,6 @@ app.get("/api/v1/todos", async (request, response) => {
     response.status(500).send("Internal server error")
   }
 });
-
 
 
 
@@ -57,8 +55,6 @@ app.post('/api/v1/todo', async (request, response) => {
   }
 }
 );
-
-
 
 
 
@@ -105,8 +101,6 @@ app.patch('/api/v1/todo/:id', async (request, response) => {
   // console.log("ye hy id: ", id);
 
 });
-
-
 
 
 
