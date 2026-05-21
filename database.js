@@ -1,41 +1,12 @@
 import mongoose from "mongoose";
-
 const mongodbURi = process.env.MONGO_URI;
-
-// console.log("mongodbURi" , mongodbURi);
-
-
-
-
 const connectDB = async () => {
-
     try {
-        const connectionInstance = await mongoose.connect(mongodbURi)
-
-        console.log("MongoDb Connected");
-
-        mongoose.connection.on(
-            "error",
-            console.error.bind(console, "Connection error:"),
-        );
-
-        process.on("SIGINT", () => {
-            mongoose.connection.close();
-
-            console.log("Mongoose connection closed due to application termination");
-            process.exit(0);
-
-        });
+        await mongoose.connect(mongodbURi)
+        console.log("Mongodb connected")
     } catch (error) {
-        console.error("MongoDb connection Failed", error);
-        process.exit(1);
+        console.error("mongodb connection failed", error)
     }
-};
-
-try {
-    await connectDB();
-
-} catch (err) {
-    console.log("🚀 ~ main file ~ err:", err);
 }
 
+connectDB();

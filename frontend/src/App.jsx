@@ -18,7 +18,7 @@ export default function App() {
 
 
   const [todos, setTodos] = useState([]);
-  const [isEditing, setIsEditing] = useState(false); // Add this line
+  const [isEditing, setIsEditing] = useState(false); 
 
 
   const [currentTodo, setCurrentTodo] = useState({ id: null, value: "" });
