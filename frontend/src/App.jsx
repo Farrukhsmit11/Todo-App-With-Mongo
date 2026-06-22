@@ -1,6 +1,5 @@
 
 import axios from "axios";
-import e from "cors";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 
