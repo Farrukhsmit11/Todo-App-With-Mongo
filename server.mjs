@@ -96,7 +96,7 @@ app.delete("/api/v1/todo/:id", async (request, response) => {
 });
 
 app.use((request, response) => {
-  response.status(404).send("No route found!");
+  response.status(404).send("Backend app working!");
 });
 
 app.listen(port, () => {
