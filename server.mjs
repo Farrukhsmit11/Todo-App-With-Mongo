@@ -14,7 +14,8 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://todoappwithmongo.netlify.app/"
-    ]
+    ],
+    credentials: true
   })
 );
 
